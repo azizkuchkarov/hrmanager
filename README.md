@@ -1,36 +1,97 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# HR Portal Uzbekistan (MVP)
 
-## Getting Started
+O'zbekiston HRlari uchun ochiq portal:
 
-First, run the development server:
+- Qonunchilik bo'limi (`/qonunchilik`)
+- HR maqolalar (`/maqolalar`)
+- 7 ta kalkulyator (`/kalkulyatorlar`)
+- 6 ta hujjat generatori (`/hujjatlar`)
+- Yangiliklar (`/yangiliklar`)
+
+## Texnologiyalar
+
+- Next.js (App Router) + TypeScript
+- Tailwind CSS
+- MDX kontent (`content/*`)
+- `react-hook-form` + `zod`
+- `.docx` generator (`docx`)
+
+## Muhim qarorlar
+
+- Foydalanuvchi auth/login yo'q
+- To'lov/obuna yo'q
+- Admin panel yo'q
+- Kontent fayl asosida boshqariladi (Git workflow)
+
+## Lokal ishga tushirish
+
+1. Dependency o'rnatish:
+
+```bash
+npm install
+```
+
+2. `.env.example` dan nusxa oling:
+
+```bash
+cp .env.example .env.local
+```
+
+Windows PowerShell:
+
+```powershell
+Copy-Item .env.example .env.local
+```
+
+3. Dev server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. Brauzerda oching: [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Kontentni qanday yangilash
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Maqolalar
 
-## Learn More
+- Fayllar: `content/maqolalar/*.mdx`
 
-To learn more about Next.js, take a look at the following resources:
+### Qonunchilik
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Fayllar: `content/qonunchilik/*.mdx`
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Yangiliklar
 
-## Deploy on Vercel
+- Fayllar: `content/yangiliklar/*.mdx`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+MDX frontmatter namunasi:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```mdx
+---
+title: "Sarlavha"
+slug: "slug-nomi"
+summary: "Qisqa tavsif"
+publishedAt: "2026-04-01"
+lexUzUrl: "https://lex.uz/docs/..."
+---
+```
+
+## Hujjat generator
+
+- Shablonlar: `src/lib/documents/templates.ts`
+- API endpoint: `src/app/api/documents/[slug]/route.ts`
+
+Hujjat `.docx` formatida yaratiladi va brauzer orqali yuklanadi.
+
+## Kalkulyatorlar
+
+- Registry: `src/lib/calculators/registry.ts`
+- Har bir formula: `src/lib/calculators/*.ts`
+- API endpoint: `src/app/api/calculators/[slug]/route.ts`
+
+## Build tekshiruv
+
+```bash
+npm run build
+```
